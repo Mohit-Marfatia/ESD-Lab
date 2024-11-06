@@ -6,6 +6,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    z-index: 0;
     color: white;
 }
 
@@ -26,7 +27,7 @@
 .navbar {
     position: absolute;
     width: 100%;
-    z-index: -100;
+    z-index: 1;
     background-color: transparent !important;
 }
 
@@ -37,7 +38,7 @@
 }
 
 .nav-link {
-    color: black !important;
+    color: white !important;
 }
 
 .nav-item{
@@ -51,4 +52,12 @@
     border: none;
     padding: 10px 25px;
     border-radius: 25px;
+}
+
+.menu{
+    width: 100vw;
+    margin-top: 50px;
+}
+.card{
+    margin: 20px 20px;
 }
