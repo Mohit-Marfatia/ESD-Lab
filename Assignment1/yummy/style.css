@@ -54,10 +54,44 @@
     border-radius: 25px;
 }
 
-.menu{
-    width: 100vw;
-    margin-top: 50px;
+.order-btn-item {
+    background-color: #ac2222;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 20px;
+    border-radius: 25px;
+}
+
+.rating{
+    margin-top: 30px;
+    font-weight: 500;
 }
 .card{
-    margin: 20px 20px;
+    margin: 20px 0px;
+    height: 50rem;
+    border-top-left-radius: 400px !important;
+    border-top-right-radius: 400px !important;
+    /* z-index: 0; */
+    /* background-color:   !important; */
+    background: radial-gradient(red 40%, orange 80%, yellow);
+    
+
+}
+
+.card-title{
+    font-size: 23px;
+}
+
+.card-text{
+    text-align: center;
+    font-size: 17px;
+    /* padding: 200px; */
+}
+.menu .card-image-top{
+  width: 100%;
+  object-fit: cover;
+}
+
+.item-price{
+    font-weight: 600;
 }
