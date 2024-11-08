@@ -3,6 +3,7 @@ package com.mohitmarfatia.moskitchen.service;
 import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
 import com.mohitmarfatia.moskitchen.dto.LoginRequest;
 import com.mohitmarfatia.moskitchen.entity.Customer;
+import com.mohitmarfatia.moskitchen.helper.JWTHelper;
 import com.mohitmarfatia.moskitchen.mapper.CustomerMapper;
 import com.mohitmarfatia.moskitchen.repo.CustomerRepo;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,12 @@ import java.util.Optional;
 public class CustomerService {
     private final CustomerRepo repo;
     private final CustomerMapper mapper;
+    private final PasswordEncryptService passwordEncoder;
 
+    private final JWTHelper jwtHelper;
     public String createCustomer( CustomerRequest request) {
         Customer customer = mapper.toEntity(request);
+        customer.setPassword(passwordEncoder.encodePassword(customer.getPassword()));
         repo.save(customer);
         return "Created";
     }
@@ -29,7 +33,7 @@ public class CustomerService {
         Customer customer;
         if (optionalCustomer.isPresent()) {
              customer = optionalCustomer.get();
-            return customer.getPassword().equals(request.password())? "Logged in" : "Wrong password";
+            return passwordEncoder.verifyPassword(request.password(), customer.getPassword()) ? jwtHelper.generateToken(request.email()) : "Wrong password";
         }
 
         return "Email not found";
