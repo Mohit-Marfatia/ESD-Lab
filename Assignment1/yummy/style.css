@@ -68,17 +68,28 @@
 }
 .item-card{
     margin: 20px 0px;
+    padding-top: 0px;
     height: 50rem;
     border-top-left-radius: 400px !important;
     border-top-right-radius: 400px !important;
     /* z-index: 0; */
     /* background-color: #ffc107  !important; */
     background: radial-gradient(#ffc107 50%, yellow);
-    
-    
-
 }
 
+.card-img-top{
+    position:absolute;
+} 
+
+.img-top .img-btm{
+    margin-top: 0;
+    height: 20rem;
+}
+
+.card-body{
+    /* height: 30rem; */
+    margin-top: 18rem;
+}
 .card-title{
     font-size: 23px;
 }
