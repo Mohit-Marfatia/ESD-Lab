@@ -1,6 +1,7 @@
 package com.mohitmarfatia.moskitchen.helper;
 
 
+import com.mohitmarfatia.moskitchen.enums.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,8 +17,13 @@ public class JWTHelper {
     private String SECRET_KEY = "cr666N7wIV+KJ2xOQpWtcfAekL4YXd9gbnJMs8SJ9sI=";
 
     // Extract username from the token
-    public String extractUsername(String token) {
+    public String extractUserId(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public UserRole extractUserRole(String token) {
+        final Claims claims = extractAllClaims(token);
+        return claims.get("role", UserRole.class);
     }
 
     // Extract expiration date from the token
@@ -42,21 +48,25 @@ public class JWTHelper {
     }
 
     // Generate token
-    public String generateToken(String username) {
+    public String generateToken(Long userId, UserRole role) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
+        claims.put("iat", new Date(System.currentTimeMillis()));
+        claims.put("exp", new Date(System.currentTimeMillis() + 1000 * 60));  // Token valid for 10 hours
+        claims.put("role", role);
+        claims.put("sub", userId.toString());
+        return createToken(claims);
     }
 
     // Create token with claims
-    private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60)) // Token valid for 10 hours
+    private String createToken(Map<String, Object> claims) {
+        return Jwts.builder()
+                .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
     // Validate token
-    public Boolean validateToken(String token, String username) {
-        final String extractedUsername = extractUsername(token);
+    public Boolean validateToken(String token) {
+//        final String extractedUsername = extractUserId(token);
 //        return (extractedUsername.equals(username) && !isTokenExpired(token));
         return !isTokenExpired(token);
     }

@@ -1,5 +1,6 @@
 package com.mohitmarfatia.moskitchen.entity;
 
+import com.mohitmarfatia.moskitchen.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,10 @@ public class Customer {
 
     @Column(name= "last_name")
     private String lastName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="userRole", columnDefinition = "varchar(50) default 'CUSTOMER'")
+    private UserRole userRole;
 
     @Column(name ="email", nullable = false, unique = true)
     private String email;

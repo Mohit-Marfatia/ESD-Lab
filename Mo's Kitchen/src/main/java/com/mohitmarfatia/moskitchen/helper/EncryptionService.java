@@ -1,9 +1,6 @@
-package com.mohitmarfatia.moskitchen.service;
+package com.mohitmarfatia.moskitchen.helper;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Configuration
-public class PasswordEncryptService {
+public class EncryptionService {
     private final PasswordEncoder passwordEncoder;
 
     public String encodePassword(String rawPassword) {
