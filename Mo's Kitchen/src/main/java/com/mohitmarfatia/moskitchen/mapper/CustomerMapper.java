@@ -14,11 +14,4 @@ public class CustomerMapper {
                 .password(request.password())
                 .build();
     }
-
-//    public Customer toAuthEntity(CustomerRequest request) {
-//        return Customer.builder()
-//                .email(request.email())
-//                .password(request.password())
-//                .build();
-//    }
 }

@@ -36,17 +36,11 @@ public class CustomerService {
 
     public String createCustomer(CustomerRequest request) {
         Customer customer = mapper.toEntity(request);
-//        if (isAdmin(token)) {
-            customer.setPassword(passwordEncoder.encodePassword(customer.getPassword()));
-            customer.setUserRole(UserRole.CUSTOMER);
-            repo.save(customer);
-            return "Created";
-//        } else return "Need admin access to create customer";
+        customer.setPassword(passwordEncoder.encodePassword(customer.getPassword()));
+        customer.setUserRole(UserRole.CUSTOMER);
+        repo.save(customer);
+        return "Created";
     }
 
-    private boolean isAdmin(String token) {
-        UserRole role = jwtHelper.extractUserRole(token);
-        return role.equals(UserRole.ADMIN);
-    }
 
 }

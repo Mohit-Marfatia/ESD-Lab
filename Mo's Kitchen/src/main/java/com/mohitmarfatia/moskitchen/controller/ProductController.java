@@ -1,7 +1,7 @@
 package com.mohitmarfatia.moskitchen.controller;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
-import com.mohitmarfatia.moskitchen.service.CustomerService;
+import com.mohitmarfatia.moskitchen.dto.ProductRequest;
+import com.mohitmarfatia.moskitchen.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor //inject all beans to this url
-@RequestMapping("/api/v1/customer")
-public class CustomerController {
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/product")
+public class ProductController {
 
-    private final CustomerService customerService;
+    private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
-        return ResponseEntity.ok(customerService.createCustomer(request));
+    public ResponseEntity<String> createProduct(@RequestBody @Valid ProductRequest request) {
+        return ResponseEntity.ok(productService.createProduct(request));
     }
 }
