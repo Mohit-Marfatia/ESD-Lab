@@ -1,6 +1,7 @@
 package com.mohitmarfatia.moskitchen.mapper;
 
 import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
+import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
 import com.mohitmarfatia.moskitchen.entity.Customer;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +14,9 @@ public class CustomerMapper {
                 .lastName(request.lastName())
                 .password(request.password())
                 .build();
+    }
+
+    public CustomerResponse toResponse(Customer customer) {
+        return new CustomerResponse(customer.getFirstName(), customer.getLastName(), customer.getEmail());
     }
 }
