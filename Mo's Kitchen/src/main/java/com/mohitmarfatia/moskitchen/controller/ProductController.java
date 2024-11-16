@@ -18,8 +18,9 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createProduct(@RequestBody @Valid ProductRequest request) {
-        return ResponseEntity.ok(productService.createProduct(request));
+    public ResponseEntity<String> createProduct(@RequestBody @Valid ProductRequest request, @RequestHeader(name = "Authorization") String authToken) {
+        String token = authToken.split(" ")[1].trim();
+        return ResponseEntity.ok(productService.createProduct(request, token));
     }
 
     @GetMapping("/all-products")

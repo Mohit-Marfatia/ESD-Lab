@@ -23,7 +23,10 @@ public class JWTHelper {
 
     public UserRole extractUserRole(String token) {
         final Claims claims = extractAllClaims(token);
-        return claims.get("role", UserRole.class);
+        String role = claims.get("role", String.class);
+        System.out.println("------------");
+        System.out.println(role);
+        return UserRole.fromString(role);
     }
 
     // Extract expiration date from the token

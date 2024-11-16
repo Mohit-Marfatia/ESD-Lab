@@ -25,12 +25,12 @@ public class ProductService {
     private final ProductMapper mapper;
     private final JWTHelper jwtHelper;
 
-    public String createProduct(ProductRequest request) {
-//        if (isAdmin(token)) {
+    public String createProduct(ProductRequest request, String token) {
+        if (isAdmin(token)) {
             Product product = mapper.toEntity(request);
             repo.save(product);
             return "Created";
-//        } else return "Need admin access to create product";
+        } else return "Need admin access to create product";
     }
 
     public List<ProductResponse> retrieveProducts() {

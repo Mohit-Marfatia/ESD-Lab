@@ -26,7 +26,7 @@ public class RequestInterceptor implements HandlerInterceptor {
 
         String token = authorizationHeader.split(" ")[1].trim(); // Extract token from "Bearer {token}"
 //        System.out.println("----------");
-//        System.out.println(token);
+//        System.out.println(token.contains(" "));
         String userId = jwtUtil.extractUserId(token);
 
         if (userId == null || !jwtUtil.validateToken(token)) {
