@@ -79,4 +79,13 @@ public class CustomerService {
             return "Updated";
         } else return "Customer not found";
     }
+
+    public String deleteCustomer(Long id) {
+        if(repo.existsById(id)) {
+            repo.deleteById(id);
+            return "Deleted";
+        } else {
+            return "Customer not found";
+        }
+    }
 }

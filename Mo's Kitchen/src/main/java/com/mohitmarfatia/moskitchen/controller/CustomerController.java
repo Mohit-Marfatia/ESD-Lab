@@ -36,4 +36,11 @@ public class CustomerController {
         UserRole role = jwtHelper.extractUserRole(token);
         return ResponseEntity.ok(customerService.updateCustomer(request, id, role));
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestHeader(name = "Authorization") String authToken) {
+        String token = authToken.split(" ")[1].trim();
+        Long id = jwtHelper.extractUserId(token);
+        return ResponseEntity.ok(customerService.deleteCustomer(id));
+    }
 }

@@ -61,6 +61,17 @@ public class ProductService {
         } else return "Need admin access to create product";
     }
 
+    public String deleteProduct(Long id, String token) {
+        if(isAdmin(token)){
+            if (repo.existsById(id)) {
+                repo.deleteById(id);
+                return "Deleted";
+            } else {
+                return "Product not found";
+            }
+        } else return "Need admin access to delete product";
+    }
+
     private boolean isAdmin(String token) {
         UserRole role = jwtHelper.extractUserRole(token);
         return role.equals(UserRole.ADMIN);

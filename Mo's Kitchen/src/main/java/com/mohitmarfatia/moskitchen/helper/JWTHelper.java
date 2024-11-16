@@ -24,8 +24,8 @@ public class JWTHelper {
     public UserRole extractUserRole(String token) {
         final Claims claims = extractAllClaims(token);
         String role = claims.get("role", String.class);
-        System.out.println("------------");
-        System.out.println(role);
+//        System.out.println("------------");
+//        System.out.println(role);
         return UserRole.fromString(role);
     }
 
