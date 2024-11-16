@@ -33,14 +33,13 @@ public class ProductService {
 //        } else return "Need admin access to create product";
     }
 
-//    public List<ProductResponse> retrieveProducts() {
-//        List<Product> product = repo.findAll();
-//        product.stream()
-//                .map(prod -> mapper.toResponse(prod)
-//                )
-//                .toList();
-//        return mapper.toResponse(customer);
-//    }
+    public List<ProductResponse> retrieveProducts() {
+        List<Product> products = repo.findAll();
+        return products.stream()
+                .map(mapper::toResponse
+                )
+                .toList();
+    }
 
     private boolean isAdmin(String token) {
         UserRole role = jwtHelper.extractUserRole(token);
