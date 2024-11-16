@@ -1,12 +1,10 @@
 package com.mohitmarfatia.moskitchen.service;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
-import com.mohitmarfatia.moskitchen.dto.ProductRequest;
-import com.mohitmarfatia.moskitchen.dto.ProductResponse;
-import com.mohitmarfatia.moskitchen.entity.Customer;
+import com.mohitmarfatia.moskitchen.dto.product.ProductRequest;
+import com.mohitmarfatia.moskitchen.dto.product.ProductResponse;
+import com.mohitmarfatia.moskitchen.dto.product.ProductUpdateRequest;
 import com.mohitmarfatia.moskitchen.entity.Product;
 import com.mohitmarfatia.moskitchen.enums.UserRole;
-import com.mohitmarfatia.moskitchen.exception.CustomerNotFoundException;
 import com.mohitmarfatia.moskitchen.helper.JWTHelper;
 import com.mohitmarfatia.moskitchen.mapper.ProductMapper;
 import com.mohitmarfatia.moskitchen.repo.ProductRepo;
@@ -14,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -39,6 +37,28 @@ public class ProductService {
                 .map(mapper::toResponse
                 )
                 .toList();
+    }
+
+    public String updateProduct(ProductUpdateRequest request, String token, Long productId) {
+        if (isAdmin(token)) {
+            Optional<Product> optionalProduct = repo.findById(productId);
+
+            if (optionalProduct.isPresent()) {
+                Product product = optionalProduct.get();
+                if(request.updatedName() != null) {
+                    product.setName(request.updatedName());
+                    repo.save(product);
+                }
+                if(request.updatedPrice() != null) {
+                    product.setPrice(request.updatedPrice());
+                    repo.save(product);
+                }
+//            Product product = mapper.toEntity(request);
+
+                return "Updated";
+            } else return "Product not found";
+
+        } else return "Need admin access to create product";
     }
 
     private boolean isAdmin(String token) {

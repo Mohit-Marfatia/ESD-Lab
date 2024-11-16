@@ -1,7 +1,7 @@
 package com.mohitmarfatia.moskitchen.mapper;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
-import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerResponse;
 import com.mohitmarfatia.moskitchen.entity.Customer;
 import org.springframework.stereotype.Service;
 

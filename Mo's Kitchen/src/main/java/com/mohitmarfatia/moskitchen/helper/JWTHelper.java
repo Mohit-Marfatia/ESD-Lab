@@ -17,8 +17,8 @@ public class JWTHelper {
     private String SECRET_KEY = "cr666N7wIV+KJ2xOQpWtcfAekL4YXd9gbnJMs8SJ9sI=";
 
     // Extract username from the token
-    public String extractUserId(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public Long extractUserId(String token) {
+        return Long.parseLong(extractClaim(token, Claims::getSubject));
     }
 
     public UserRole extractUserRole(String token) {

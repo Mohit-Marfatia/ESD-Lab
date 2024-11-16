@@ -1,9 +1,7 @@
 package com.mohitmarfatia.moskitchen.mapper;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
-import com.mohitmarfatia.moskitchen.dto.ProductRequest;
-import com.mohitmarfatia.moskitchen.dto.ProductResponse;
-import com.mohitmarfatia.moskitchen.entity.Customer;
+import com.mohitmarfatia.moskitchen.dto.product.ProductRequest;
+import com.mohitmarfatia.moskitchen.dto.product.ProductResponse;
 import com.mohitmarfatia.moskitchen.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +15,6 @@ public class ProductMapper {
     }
 
     public ProductResponse toResponse(Product product) {
-        return new ProductResponse(product.getName(), product.getPrice());
+        return new ProductResponse(product.getId(), product.getName(), product.getPrice());
     }
 }

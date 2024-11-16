@@ -1,7 +1,10 @@
 package com.mohitmarfatia.moskitchen.controller;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
-import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerResponse;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerUpdateRequest;
+import com.mohitmarfatia.moskitchen.enums.UserRole;
+import com.mohitmarfatia.moskitchen.helper.JWTHelper;
 import com.mohitmarfatia.moskitchen.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final JWTHelper jwtHelper;
 
     @PostMapping("/create")
     public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
@@ -23,5 +27,13 @@ public class CustomerController {
     @GetMapping("/{email}")
     public ResponseEntity<CustomerResponse> getCustomer(@PathVariable("email") String email) {
         return ResponseEntity.ok(customerService.retrieveCustomer(email));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateCustomer(@RequestHeader(name = "Authorization") String authToken, @RequestBody CustomerUpdateRequest request) {
+        String token = authToken.split(" ")[1].trim();
+        Long id = jwtHelper.extractUserId(token);
+        UserRole role = jwtHelper.extractUserRole(token);
+        return ResponseEntity.ok(customerService.updateCustomer(request, id, role));
     }
 }

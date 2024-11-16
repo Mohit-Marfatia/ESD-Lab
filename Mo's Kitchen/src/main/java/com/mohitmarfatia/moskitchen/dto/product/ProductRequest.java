@@ -1,4 +1,4 @@
-package com.mohitmarfatia.moskitchen.dto;
+package com.mohitmarfatia.moskitchen.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;

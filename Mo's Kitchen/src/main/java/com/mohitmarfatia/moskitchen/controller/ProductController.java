@@ -1,7 +1,8 @@
 package com.mohitmarfatia.moskitchen.controller;
 
-import com.mohitmarfatia.moskitchen.dto.ProductRequest;
-import com.mohitmarfatia.moskitchen.dto.ProductResponse;
+import com.mohitmarfatia.moskitchen.dto.product.ProductRequest;
+import com.mohitmarfatia.moskitchen.dto.product.ProductResponse;
+import com.mohitmarfatia.moskitchen.dto.product.ProductUpdateRequest;
 import com.mohitmarfatia.moskitchen.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,11 @@ public class ProductController {
     @GetMapping("/all-products")
     public ResponseEntity<List<ProductResponse>> getProducts() {
         return ResponseEntity.ok(productService.retrieveProducts());
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateProduct(@RequestBody @Valid ProductUpdateRequest request, @RequestHeader(name = "Authorization") String authToken, @PathVariable Long id) {
+        String token = authToken.split(" ")[1].trim();
+        return ResponseEntity.ok(productService.updateProduct(request, token, id));
     }
 }

@@ -1,6 +1,6 @@
 package com.mohitmarfatia.moskitchen.controller;
 
-import com.mohitmarfatia.moskitchen.dto.LoginRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.LoginRequest;
 import com.mohitmarfatia.moskitchen.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

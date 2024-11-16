@@ -1,8 +1,9 @@
 package com.mohitmarfatia.moskitchen.service;
 
-import com.mohitmarfatia.moskitchen.dto.CustomerRequest;
-import com.mohitmarfatia.moskitchen.dto.CustomerResponse;
-import com.mohitmarfatia.moskitchen.dto.LoginRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerResponse;
+import com.mohitmarfatia.moskitchen.dto.customer.CustomerUpdateRequest;
+import com.mohitmarfatia.moskitchen.dto.customer.LoginRequest;
 import com.mohitmarfatia.moskitchen.entity.Customer;
 import com.mohitmarfatia.moskitchen.enums.UserRole;
 import com.mohitmarfatia.moskitchen.exception.CustomerNotFoundException;
@@ -51,5 +52,31 @@ public class CustomerService {
                 format("Cannot update Customer:: No customer found with the provided ID:: %s", email)
         ));
         return mapper.toResponse(customer);
+    }
+
+    public String updateCustomer(CustomerUpdateRequest request, Long id, UserRole userRole) {
+//            System.out.println("----------");
+//            System.out.println(id);
+        Optional<Customer> optionalCustomer = repo.findById(id);
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            if (request.updatedFirstName() != null) {
+                customer.setFirstName(request.updatedFirstName());
+                repo.save(customer);
+            }
+            if (request.updatedLastName() != null) {
+                customer.setLastName(request.updatedLastName());
+                repo.save(customer);
+            }
+//            System.out.println("----------");
+//            System.out.println(request.updatedUserRole());
+            if (request.updatedUserRole() != null) {
+                if (userRole == UserRole.ADMIN) {
+                    customer.setUserRole(request.updatedUserRole());
+                    repo.save(customer);
+                } else return "You need admin access to change your role";
+            }
+            return "Updated";
+        } else return "Customer not found";
     }
 }
