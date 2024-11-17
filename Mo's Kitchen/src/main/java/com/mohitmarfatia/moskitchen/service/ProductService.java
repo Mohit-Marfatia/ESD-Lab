@@ -72,6 +72,15 @@ public class ProductService {
         } else return "Need admin access to delete product";
     }
 
+    public List<ProductResponse> getTop2Products(double minPrice, double maxPrice) {
+        List<Product> products = repo.findTop2Products(minPrice, maxPrice);
+        return products.stream()
+                .map(mapper::toResponse
+                )
+                .toList();
+
+    }
+
     private boolean isAdmin(String token) {
         UserRole role = jwtHelper.extractUserRole(token);
         return role.equals(UserRole.ADMIN);

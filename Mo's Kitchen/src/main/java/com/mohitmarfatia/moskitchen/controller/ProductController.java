@@ -3,6 +3,7 @@ package com.mohitmarfatia.moskitchen.controller;
 import com.mohitmarfatia.moskitchen.dto.product.ProductRequest;
 import com.mohitmarfatia.moskitchen.dto.product.ProductResponse;
 import com.mohitmarfatia.moskitchen.dto.product.ProductUpdateRequest;
+import com.mohitmarfatia.moskitchen.entity.Product;
 import com.mohitmarfatia.moskitchen.enums.UserRole;
 import com.mohitmarfatia.moskitchen.helper.JWTHelper;
 import com.mohitmarfatia.moskitchen.service.ProductService;
@@ -42,5 +43,10 @@ public class ProductController {
     public ResponseEntity<String> deleteProduct(@RequestHeader(name="Authorization") String authToken, @PathVariable Long id) {
         String token = authToken.split(" ")[1].trim();
         return ResponseEntity.ok(productService.deleteProduct(id, token));
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<List<ProductResponse>> getTopProducts(@RequestParam double minPrice, @RequestParam double maxPrice) {
+        return ResponseEntity.ok(productService.getTop2Products(minPrice, maxPrice));
     }
 }
