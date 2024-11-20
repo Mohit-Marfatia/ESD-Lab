@@ -22,24 +22,24 @@ public class ProductController {
     private final ProductService productService;
     private final JWTHelper jwtHelper;
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<String> createProduct(@RequestBody @Valid ProductRequest request, @RequestHeader(name = "Authorization") String authToken) {
         String token = authToken.split(" ")[1].trim();
         return ResponseEntity.ok(productService.createProduct(request, token));
     }
 
-    @GetMapping("/all-products")
+    @GetMapping()
     public ResponseEntity<List<ProductResponse>> getProducts() {
         return ResponseEntity.ok(productService.retrieveProducts());
     }
 
-    @PutMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> updateProduct(@RequestBody @Valid ProductUpdateRequest request, @RequestHeader(name = "Authorization") String authToken, @PathVariable Long id) {
         String token = authToken.split(" ")[1].trim();
         return ResponseEntity.ok(productService.updateProduct(request, token, id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@RequestHeader(name="Authorization") String authToken, @PathVariable Long id) {
         String token = authToken.split(" ")[1].trim();
         return ResponseEntity.ok(productService.deleteProduct(id, token));
