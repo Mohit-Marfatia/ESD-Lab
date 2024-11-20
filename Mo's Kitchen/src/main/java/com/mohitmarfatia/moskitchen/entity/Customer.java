@@ -8,13 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder //object
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity  //persisted into db?
+@Entity
 @Table(name="customer")
 public class Customer {
-    @Id // PK
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //auto generate id into mysqldb
     private Long id;
 
